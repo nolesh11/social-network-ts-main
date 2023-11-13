@@ -1,6 +1,6 @@
 import React from "react";
 import { Header } from "./components/UI/Header/Header";
-import { LoginPage } from "./pages/LoginPage/LoginPage";
+// import { LoginPage } from "./pages/LoginPage/LoginPage";
 import { MainPage } from "./pages/MainPage/MainPage";
 
 const App: React.FC = () => {
