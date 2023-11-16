@@ -1,16 +1,29 @@
 import React from "react";
-import { Header } from "./components/UI/Header/Header";
-// import { LoginPage } from "./pages/LoginPage/LoginPage";
+// import { Header } from "./components/UI/Header/Header";
+import { LoginPage } from "./pages/LoginPage/LoginPage";
 import { MainPage } from "./pages/MainPage/MainPage";
+import { ProfilePage } from "./pages/ProfilePage/ProfilePage";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+
+const routerConfig = createBrowserRouter([
+  {
+    path: '/login',
+    element: <LoginPage />
+  },
+  {
+    path: '/',
+    element: <MainPage />
+  },
+  {
+    path: '/profile',
+    element: <ProfilePage />
+  },
+])
 
 const App: React.FC = () => {
-  return (
+  return (  
     <div className="App">
-      <Header />
-      <div className="container">
-        {/* <LoginPage /> */}
-        <MainPage />
-      </div>
+      <RouterProvider router={routerConfig} />
     </div>
   );
 };

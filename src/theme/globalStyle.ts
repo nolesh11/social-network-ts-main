@@ -1,5 +1,6 @@
-@import url(https://fonts.googleapis.com/css?family=Inter:100,200,300,regular,500,600,700,800,900);
+import { createGlobalStyle } from "styled-components";
 
+export const GlobalStyle = createGlobalStyle`
 * {
   margin: 0;
   padding: 0;
@@ -43,7 +44,8 @@ a {
   user-select: none; //? Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox
 }
 
-input {
+
+/* input {
   padding: 12px 15px;
   background-color: var(--bgc);
   border-radius: 10px;
@@ -54,10 +56,11 @@ input {
   &:is(:hover, :focus) {
     border-color: var(--prime-color);
   }
-}
+} */
 
 @media (max-width: 730px) {
   input, button {
     padding: 10px 12px;
   }
 }
+`;
