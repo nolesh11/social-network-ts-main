@@ -3,6 +3,7 @@ import "./LoginPage.scss";
 import { Heading } from "../../components/TypoGraphy/Heading";
 import { StyledLink } from "../../components/TypoGraphy/StyledLink";
 import { Button } from "../../components/UI/button/Button";
+import { Input } from "../../components/UI/input/Input";
 
 export const LoginPage = () => {
   return (
@@ -10,10 +11,9 @@ export const LoginPage = () => {
       <div className="LoginPage">
         <Heading headingText="Авторизация" />
         <form>
-          <input type="tel" placeholder="Номер телефона" />
-          <input type="password" placeholder="Пароль" />
+          <Input placeholder="Номер телефона" type="tel" />
+          <Input placeholder="Пароль" type="password" />
           <Button buttonText="Войти" />
-          <button>Войти</button>
         </form>
         <StyledLink linkText="Забыли пароль?" />
         <div className="registration">
