@@ -4,7 +4,7 @@ export const LoginInfo = () => {
   return (
     <StyledLoginInfo>
       <span>
-        Уже есть аккаунт? <a href="#">Войти</a>
+        Уже есть аккаунт? <a href="/login">Войти</a>
       </span>
       <p>Регистрация с помощью</p>
       <div className="icons-wrapper">

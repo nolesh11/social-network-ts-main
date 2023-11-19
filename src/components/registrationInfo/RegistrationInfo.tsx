@@ -4,7 +4,7 @@ export const RegistrationInfo = () => {
   return (
     <StyledRegistrationInfo>
       <span>
-        У вас нет аккаунта? <a href="#">Зарегистрироваться</a>
+        У вас нет аккаунта? <a href="/reagistration">Зарегистрироваться</a>
       </span>
       <p>Войти с помощью</p>
       <div className="icons-wrapper">
