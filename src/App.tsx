@@ -18,6 +18,10 @@ const routerConfig = createBrowserRouter([
     path: '/profile',
     element: <ProfilePage />
   },
+  {
+    path: '/reagistration',
+    element: <ProfilePage />
+  },
 ])
 
 const App: React.FC = () => {

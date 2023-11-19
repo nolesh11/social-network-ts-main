@@ -1,13 +1,16 @@
 import React from "react";  
-import { StyledInput } from "./Input.style";
+import { ErrorMessage, InputContainer, StyledInput } from "./Input.style";
 
-interface InputProps {
-  placeholder: string
-  type: 'tel' | 'password'
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  errorMessage?: string
+  isError: boolean
 }
 
-export const Input = ({placeholder, type}: InputProps) => {
+export const Input = ({placeholder, type, errorMessage, isError}: InputProps) => {
   return(
-    <StyledInput placeholder={placeholder} type={type} />
+    <InputContainer>
+      <StyledInput placeholder={placeholder} type={type} />
+      {isError && <ErrorMessage>{errorMessage}</ErrorMessage>}
+    </InputContainer>
   )
 }
