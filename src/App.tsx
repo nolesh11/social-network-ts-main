@@ -4,6 +4,7 @@ import { LoginPage } from "./pages/LoginPage/LoginPage";
 import { MainPage } from "./pages/MainPage/MainPage";
 import { ProfilePage } from "./pages/ProfilePage/ProfilePage";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { ReagistrationPage } from "./pages/ReagistrationPage/ReagistrationPage";
 
 const routerConfig = createBrowserRouter([
   {
@@ -20,7 +21,7 @@ const routerConfig = createBrowserRouter([
   },
   {
     path: '/reagistration',
-    element: <ProfilePage />
+    element: <ReagistrationPage />
   },
 ])
 
