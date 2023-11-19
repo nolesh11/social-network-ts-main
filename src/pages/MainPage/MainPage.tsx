@@ -1,13 +1,14 @@
 import React from "react";
-import "./MainPage.scss";
 import { Header } from "../../components/UI/Header/Header";
+import { StyledMainPage } from "./MainPage.style";
+import { Container } from "../../components/UI/container/Container.style";
 
 export const MainPage = () => {
   return (
-    <div className="container">
+    <Container>
       <Header />
-      <div className="MainPage">
-        <aside className="LeftSide">
+      <StyledMainPage>
+      <aside className="LeftSide">
           <nav className="Navbar">
             <ul className="navbar__list">
               <li className="navbar__item">
@@ -723,7 +724,7 @@ export const MainPage = () => {
             </div>
           </div>
         </aside>
-      </div>
-    </div>
+      </StyledMainPage>
+    </Container>
   );
 };
