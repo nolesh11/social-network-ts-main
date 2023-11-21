@@ -20,7 +20,7 @@ export const StyledForgotPassword = styled.div`
     background-color: transparent;
 
     &:last-child {
-      margin-bottom: 40px;
+      margin-bottom: 24px;
     }
 
     &:is(:hover, :focus) {
