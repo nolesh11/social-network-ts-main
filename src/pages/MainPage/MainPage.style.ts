@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const  StyledMainPage = styled.div`
+export const StyledMainPage = styled.div`
   display: grid;
   grid-template-areas: "L M R";
   grid-template-columns: minmax(300px, 360px) auto minmax(300px, 360px);

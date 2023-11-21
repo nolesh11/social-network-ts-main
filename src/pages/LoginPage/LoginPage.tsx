@@ -17,7 +17,7 @@ export const LoginPage = () => {
           <Input isError={false} errorMessage="Неверный пароль" placeholder="Пароль" type="password" />
           <Button isPrimary buttonText="Войти" />
         </form>
-        <StyledLink to="/" linkText="Забыли пароль?" />
+        <StyledLink to="/forgotpassword" linkText="Забыли пароль?" />
         <RegistrationInfo/>
       </StyledLoginPage>
     </Container>

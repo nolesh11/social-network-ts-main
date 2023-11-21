@@ -1,6 +1,6 @@
-import styled from "styled-components"
+import styled from "styled-components";
 
-export const StyledLoginPage = styled.div`
+export const StyledForgotPassword = styled.div`
   box-shadow: 0 0 10px ${(props) => props.theme.colors.lightGray};
   border-radius: 20px;
   background-color: ${(props) => props.theme.colors.elemsBgc};
@@ -11,7 +11,7 @@ export const StyledLoginPage = styled.div`
   padding: 40px;
 
   h1 {
-    margin-bottom: 50px;
+    margin-bottom: 10px;
   }
 
   input {
@@ -28,18 +28,10 @@ export const StyledLoginPage = styled.div`
     }
   }
 
-  a {
-    display: inline-block;
-    width: 100%;
-    text-align: right;
-    text-decoration: none;
-    color: ${(props) => props.theme.colors.gray};
-
-    &:hover {
-      text-decoration: underline;
-    }
+  .messageForUser {
+    color: #A0A0A0;
+    margin-bottom: 56px;
   }
-
 
   @media (max-width: 530px) {
     .LoginPage {
