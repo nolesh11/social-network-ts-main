@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Container } from "../../components/UI/container/Container.style";
 import { StyledLoginPage } from "../LoginPage/LoginPage.style";
 import { Heading } from "../../components/TypoGraphy/Heading";
@@ -8,6 +8,10 @@ import { LoginInfo } from "../../components/loginInfo/LoginInfo";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useNavigate } from "react-router-dom";
+import { useTypedSelector } from "../../hooks/useTypedSelector";
+import { changeUser } from "../../store/userSlice";
+import { useDispatch } from "react-redux";
 
 interface IRegistrationForm {
   username: string;
@@ -29,6 +33,11 @@ const registrationFormSchema = yup.object({
     .required("Обязательно поле"),
 });
 
+const mockuser = {
+  name: "Mick",
+  phone_number: "1234567"
+}
+
 export const ReagistrationPage = () => {
   const {
     control,
@@ -43,11 +52,23 @@ export const ReagistrationPage = () => {
     },
   });
 
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const user = useTypedSelector((state) => state.userSlice.user)
+
   // console.warn("Errors: ", errors);
 
   const onRegistarionSubmit: SubmitHandler<IRegistrationForm> = (data) => {
-    console.log("Data ", data);
+    // console.log("Data ", data);
+    dispatch(changeUser(mockuser))
   };
+
+  useEffect(() => {
+    console.log(user);
+    if (user?.name) {
+      navigate("/")
+    }
+  }, [user])
 
   return (
     <Container>
