@@ -1,9 +1,9 @@
 import React from "react";
-import "./ProfilePage.scss";
 import { Header } from "../../components/UI/Header/Header";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { Container } from "../../components/UI/container/Container.style";
 import { StyledProfilePage } from "./ProfilePage.style";
+import { Button } from "../../components/UI/button/Button";
 
 export const ProfilePage = () => {
   const user = useTypedSelector((state) => state.userSlice.user)
@@ -277,8 +277,15 @@ export const ProfilePage = () => {
               </div>
             </div>
             <div className="buttons-wrapper">
-              <button className="secondary">Редактировать профиль</button>
-              <button className="primary">Добавить историю</button>
+              <Button
+                isSecondary
+                isPrimary={false}
+                buttonText="Редактировать профиль"
+              />
+              <Button 
+                isPrimary
+                buttonText="Добавить историю"
+              />
             </div>
           </div>
           <div className="profile-background"></div>
