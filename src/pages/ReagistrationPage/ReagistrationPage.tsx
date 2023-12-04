@@ -47,6 +47,7 @@ export const ReagistrationPage = () => {
     resolver: yupResolver(registrationFormSchema),
     defaultValues: {
       username: "",
+      userphone: "",
       userpassword: "",
     },
   });
@@ -67,7 +68,7 @@ export const ReagistrationPage = () => {
     if (user?.name) {
       navigate("/")
     }
-  }, [user])
+  }, [navigate, user])
 
   return (
     <Container>

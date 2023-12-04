@@ -63,7 +63,7 @@ export const LoginPage = () => {
     if (user?.user_id) {
       navigate("/profile")
     }
-  }, [user])
+  }, [navigate, user])
 
   return (
     <Container>
