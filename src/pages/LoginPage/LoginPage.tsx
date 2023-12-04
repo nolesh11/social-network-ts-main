@@ -6,64 +6,67 @@ import { Input } from "../../components/UI/input/Input";
 import { Container } from "../../components/UI/container/Container.style";
 import { RegistrationInfo } from "../../components/registrationInfo/RegistrationInfo";
 import { StyledLoginPage } from "./LoginPage.style";
-import { RootState } from "../../store/store";
+// import { RootState } from "../../store/store";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useDispatch, useSelector } from "react-redux";
-import { changeUser } from "../../store/userSlice";
+import { useDispatch } from "react-redux";
+import { changeUser } from "../../store/slices/userSlice";
 import { useNavigate } from "react-router-dom";
-
+import { useLoginUserMutation } from "../../store/API/authApi";
 
 interface ILoginForm {
-  username: string,
-  userpassword: string
+  useremail: string;
+  userpassword: string;
 }
 
 const loginFormSchema = yup.object({
-  username: yup.string().required("Обязательно поле"),
+  useremail: yup.string().email().required("Обязательно поле"),
   userpassword: yup
     .string()
     .min(4, "Параль должен содержать минимум 4 символа")
     .required("Обязательно поле"),
 });
 
-const mockuser = {
-  mail: "example@mail.com",
-  phone_number: "1243546",
-  user_id: 1,
-  name: "Alex",
-  reg_date: new Date().toISOString,
-  city: "Tashkent",
-}
+// const mockuser = {
+//   mail: "example@mail.com",
+//   phone_number: "1243546",
+//   user_id: 1,
+//   name: "Alex",
+//   reg_date: new Date().toISOString,
+//   city: "Tashkent",
+// }
 
 export const LoginPage = () => {
   const {
     control,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
   } = useForm<ILoginForm>({
     resolver: yupResolver(loginFormSchema),
     defaultValues: {
-      username: "",
-      userpassword: ""
+      useremail: "",
+      userpassword: "",
     },
-  })
+  });
 
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-  const user = useSelector((state: RootState) => state.userSlice.user)
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  // const user = useSelector((state: RootState) => state.userSlice.user);
+
+  const [loginUser, { data: userData }] = useLoginUserMutation();
 
   const onLoginSubmit: SubmitHandler<ILoginForm> = (data) => {
-    dispatch(changeUser(mockuser))
-  }
+    loginUser({ email: data.useremail, password: data.userpassword });
+    dispatch(changeUser(data));
+  };
 
   useEffect(() => {
-    console.log(user);
-    if (user?.user_id) {
-      navigate("/profile")
+    console.log(userData);
+    if (userData?.user_id) {
+      navigate("/profile");
     }
-  }, [navigate, user])
+  }, [navigate, userData]);
 
   return (
     <Container>
@@ -71,14 +74,14 @@ export const LoginPage = () => {
         <Heading headingText="Авторизация" />
         <form onSubmit={handleSubmit(onLoginSubmit)}>
           <Controller
-            name="username"
+            name="useremail"
             control={control}
             render={({ field }) => (
               <Input
-                isError={errors.username ? true : false}
-                errorMessage={errors.username?.message}
-                placeholder="Номер телефона"
-                type="tel"
+                isError={errors.useremail ? true : false}
+                errorMessage={errors.useremail?.message}
+                placeholder="Почта"
+                type="email"
                 {...field}
               />
             )}
@@ -89,16 +92,16 @@ export const LoginPage = () => {
             render={({ field }) => (
               <Input
                 isError={errors.userpassword ? true : false}
-                errorMessage={errors.username?.message}
+                errorMessage={errors.userpassword?.message}
                 placeholder="Пароль"
                 type="password"
                 {...field}
               />
             )}
           />
-          <Button 
+          <Button
             type="submit"
-            isPrimary 
+            isPrimary
             buttonText="Войти"
             disabled={!!Object.keys(errors).length}
           />

@@ -1,7 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface IUserSliceState {
-  user: IUser | null,
+  user: IChangeUserPayload | null,
 }
 
 export interface IUser {
@@ -13,6 +13,11 @@ export interface IUser {
   city: string
 }
 
+interface IChangeUserPayload {
+  useremail: string,
+  userpassword: string,
+}
+
 const initialState: IUserSliceState = {
   user: null,
 }
@@ -22,7 +27,7 @@ const userSlice = createSlice({
   name: "userSlice",
   initialState, // если названия одинаковые тогда можно записать так
   reducers: {
-    changeUser(state, action) {
+    changeUser(state, action: PayloadAction<IChangeUserPayload>) {
       state.user = action.payload
     }
   }
