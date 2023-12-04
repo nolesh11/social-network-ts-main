@@ -1,13 +1,11 @@
 import React from "react";
 import { Header } from "../../components/UI/Header/Header";
-import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { Container } from "../../components/UI/container/Container.style";
 import { StyledProfilePage } from "./ProfilePage.style";
+import { UserBlock } from "../../components/profilePage/UserBlock";
 import { Button } from "../../components/UI/button/Button";
 
 export const ProfilePage = () => {
-  const user = useTypedSelector((state) => state.userSlice.user)
-
   return (
     <Container>
       <Header />
@@ -256,38 +254,8 @@ export const ProfilePage = () => {
             />
           </svg>
 
-
-          <div className="user__block">
-            <img src="./img/users/denis-frolov.jpeg" alt="Denis Frolov" />
-            <div className="user__description">
-              <h1 className="user__name">{user?.name}</h1>
-              <div className="user__info">
-                <div className="parameter">
-                  <span className="key">Друзья</span>
-                  <span className="value">130</span>
-                </div>
-                <div className="parameter">
-                  <span className="key">Подписчики</span>
-                  <span className="value">923</span>
-                </div>
-                <div className="parameter">
-                  <span className="key">Подписки</span>
-                  <span className="value">246</span>
-                </div>
-              </div>
-            </div>
-            <div className="buttons-wrapper">
-              <Button
-                isSecondary
-                isPrimary={false}
-                buttonText="Редактировать профиль"
-              />
-              <Button 
-                isPrimary
-                buttonText="Добавить историю"
-              />
-            </div>
-          </div>
+          <UserBlock />
+          
           <div className="profile-background"></div>
         </div>
         <main className="Main">
@@ -746,8 +714,15 @@ export const ProfilePage = () => {
               <p className="secondary__text hobby">Танцы</p>
             </div>
             <div className="bio__buttons">
-              <button className="primary">Подробнее</button>
-              <button className="secondary">Редактировать </button>
+              <Button
+                isPrimary
+                buttonText="Подробнее"
+              />
+              <Button
+                isPrimary={false}
+                isSecondary
+                buttonText="Редактировать"
+              />
             </div>
           </div>
           <div className="FriendsBlock">

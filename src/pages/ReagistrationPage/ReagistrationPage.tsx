@@ -47,7 +47,6 @@ export const ReagistrationPage = () => {
     resolver: yupResolver(registrationFormSchema),
     defaultValues: {
       username: "",
-      userphone: "",
       userpassword: "",
     },
   });

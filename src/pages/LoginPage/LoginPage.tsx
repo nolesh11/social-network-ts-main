@@ -75,7 +75,7 @@ export const LoginPage = () => {
             control={control}
             render={({ field }) => (
               <Input
-                isError={false}
+                isError={errors.username ? true : false}
                 errorMessage={errors.username?.message}
                 placeholder="Номер телефона"
                 type="tel"
@@ -88,7 +88,7 @@ export const LoginPage = () => {
             control={control}
             render={({ field }) => (
               <Input
-                isError={false}
+                isError={errors.userpassword ? true : false}
                 errorMessage={errors.username?.message}
                 placeholder="Пароль"
                 type="password"

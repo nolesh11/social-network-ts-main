@@ -13,7 +13,7 @@ export const StyledButton = styled.button<StyledButtonProps>`
   color: white;
   transition: 200ms;
   width: 100%;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 
   border: 1px solid transparent;
   outline: 0;

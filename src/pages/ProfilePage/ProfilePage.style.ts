@@ -283,7 +283,7 @@ export const StyledProfilePage = styled.div`
   .buttons-wrapper {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 0 10px;
   }
 }
 
@@ -844,7 +844,7 @@ export const StyledProfilePage = styled.div`
   &__buttons {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    /* gap: 15px; */
   }
 }
 

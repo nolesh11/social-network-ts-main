@@ -1,5 +1,7 @@
-.Header {
-  position: fixed;
+import styled from "styled-components";
+
+export const StyledHeader = styled.div`
+position: fixed;
   width: 100%;
   top: 0;
   left: 0;
@@ -155,4 +157,4 @@
       fill: var(--prime-color);
     }
   }
-}
+`
