@@ -20,7 +20,7 @@ const routerConfig = createBrowserRouter([
     element: <ProfilePage />
   },
   {
-    path: '/reg',
+    path: '/registration',
     element: <ReagistrationPage />
   },
   {
