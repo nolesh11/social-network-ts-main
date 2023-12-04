@@ -3,6 +3,7 @@ import "./ProfilePage.scss";
 import { Header } from "../../components/UI/Header/Header";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { Container } from "../../components/UI/container/Container.style";
+import { StyledProfilePage } from "./ProfilePage.style";
 
 export const ProfilePage = () => {
   const user = useTypedSelector((state) => state.userSlice.user)
@@ -10,7 +11,7 @@ export const ProfilePage = () => {
   return (
     <Container>
       <Header />
-      <div className="ProfilePage">
+      <StyledProfilePage>
         <aside className="LeftSide">
           <nav className="Navbar">
             <ul className="navbar__list">
@@ -841,8 +842,7 @@ export const ProfilePage = () => {
             </div>
           </div>
         </aside>
-      </div>
+      </StyledProfilePage>
     </Container>
-    
   );
 };
