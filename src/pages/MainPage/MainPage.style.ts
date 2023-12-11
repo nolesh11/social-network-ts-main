@@ -8,10 +8,6 @@ export const StyledMainPage = styled.div`
 
   .LeftSide {
     grid-area: L;
-
-    .Navbar {
-      margin-bottom: 20px;
-    }
   }
 
   .Main {
@@ -48,62 +44,6 @@ export const StyledMainPage = styled.div`
   }
 }
 
-.Navbar {
-  box-shadow: 0 0 10px ${(props) => props.theme.colors.lightGray};
-  border-radius: 20px;
-  padding: calc(1vw + 11px);
-  background-color: ${(props) => props.theme.colors.elemsBgc};
-  color: ${(props) => props.theme.colors.textColor};
-
-  .navbar__list {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
-
-  .navbar__item {
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-
-    border-radius: 10px;
-    padding: 10px 15px;
-    list-style: none;
-    transition: 200ms;
-
-    .icon {
-      flex: 0 1 25px;
-      height: calc(1vw + 5px); //? 1440 - 20 | 1920 - 25
-      object-fit: contain;
-      fill: ${(props) => props.theme.colors.primeColor};
-    }
-
-    .item__name {
-      flex: 1 1 auto;
-    }
-
-    &:hover {
-      background-color: ${(props) => props.theme.colors.lightGray};
-    }
-
-    &:active {
-      transition: 100ms;
-      background-color: ${(props) => props.theme.colors.primeColor};
-      color: white;
-
-      .icon {
-        fill: white;
-      }
-
-      .Badge {
-        background-color: white;
-        color: ${(props) => props.theme.colors.primeColor};
-      }
-    }
-  }
-}
-
 @media (max-width: 1100px) {
   .MainPage {
     grid-template-columns: min-content auto;
@@ -135,19 +75,19 @@ export const StyledMainPage = styled.div`
 }
 
 .List {
-  box-shadow: 0 0 10px ${(props) => props.theme.colors.lightGray};
-  background-color: ${(props) => props.theme.colors.elemsBgc};
-  border-radius: 20px;
-  padding: calc(1vw + 11px);
+    box-shadow: 0 0 10px ${(props) => props.theme.colors.lightGray};
+    background-color: ${(props) => props.theme.colors.elemsBgc};
+    border-radius: 20px;
+    padding: calc(1vw + 11px);
 
-  &__title {
-    margin-bottom: 20px;
+    &__title {
+      margin-bottom: 20px;
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
   }
-}
 
 .UserElem {
   cursor: pointer;
@@ -223,292 +163,6 @@ export const StyledMainPage = styled.div`
   }
 }
 
-.WhatsNew {
-  box-shadow: 0 0 10px ${(props) => props.theme.colors.lightGray};
-  background-color: ${(props) => props.theme.colors.elemsBgc};
-  border-radius: 20px;
-  padding: 20px;
-  margin-bottom: 20px;
-
-  display: flex;
-  align-items: center;
-  gap: 10px;
-
-  img {
-    flex: 0 0 40px;
-    border-radius: 50%;
-    height: 40px;
-    object-fit: cover;
-  }
-
-  input {
-    flex: 1 1 auto;
-    background: transparent;
-  }
-
-  .icons-wrapper {
-    flex: 0 1 20%;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 20px;
-
-    .icon {
-      cursor: pointer;
-      flex: 0 0 24px;
-      width: 24px;
-      border: 1px solid transparent;
-      border-radius: 10px;
-      fill: ${(props) => props.theme.colors.primeColor};
-      padding: 10px;
-      box-sizing: content-box;
-
-      transition: 200ms;
-
-      &:hover {
-        border-color: ${(props) => props.theme.colors.lightGray};
-        background-color: ${(props) => props.theme.colors.bgc};
-      }
-
-      &:active {
-        transition: 100ms;
-        background-color: ${(props) => props.theme.colors.primeColor};
-        fill: white;
-      }
-    }
-  }
-}
-
-@media (max-width: 730px) {
-  .WhatsNew {
-    padding: 10px 15px;
-  }
-}
-
-.History {
-  position: relative;
-  overflow: visible;
-  margin-bottom: 20px;
-
-  &__wrapper {
-    display: flex;
-    gap: 6px;
-    overflow: hidden;
-  }
-
-  .icon-slider-button {
-    cursor: pointer;
-    position: absolute;
-    top: 50%;
-    right: -20px;
-    transform: translateY(-50%);
-    z-index: 2;
-
-    width: 40px;
-    height: 40px;
-    transition: 200ms;
-
-    &:hover {
-      scale: 1.1;
-      filter: drop-shadow(0 0 10px ${(props) => props.theme.colors.primeColor});
-    }
-
-    &:active {
-      transition: 100ms;
-      scale: 0.9;
-      filter: none;
-    }
-  }
-}
-
-.History__item {
-  flex: 0 0 145px;
-  cursor: pointer;
-  height: calc(6.3vw + 110px); //? 200 - 1440 | 230 - 1920
-  border-radius: 20px;
-  overflow: hidden;
-
-  position: relative;
-
-  transition: 200ms;
-
-  .History__owner {
-    transition: 400ms cubic-bezier(0.18, 0.89, 0.32, 1.28);
-  }
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  span {
-    display: block;
-    width: min-content;
-    color: ${(props) => props.theme.colors.elemsBgc};
-    transition: 200ms;
-    font-size: 14px;
-  }
-
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    transition: 200ms;
-  }
-
-  &:hover {
-    .History__owner {
-      transform: translateY(200%);
-    }
-
-    &::before {
-      background-color: ${(props) => props.theme.colors.primeColor};
-      opacity: 0.7;
-    }
-  }
-}
-
-@media (max-width: 1480px) {
-  .History__item {
-    flex: 0 0 110px;
-  }
-}
-
-.History__owner {
-  position: absolute;
-  bottom: 20px;
-  left: 20px;
-
-  .owner__img {
-    display: block;
-    height: 40px;
-    width: 40px;
-    object-fit: cover;
-    border: 2px solid ${(props) => props.theme.colors.blue};
-    border-radius: 50%;
-
-    margin-bottom: 10px;
-  }
-}
-
-.add-history {
-  .icon-wrapper {
-    position: absolute;
-    top: 47%;
-    left: 50%;
-    transform: translate(-50%, 0);
-    z-index: 1;
-    text-align: center;
-    transition: 200ms;
-
-    .icon-plus {
-      fill: ${(props) => props.theme.colors.primeColor};
-      width: 14px;
-      margin-bottom: 20px;
-      transition: 200ms;
-    }
-  }
-
-  &::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    background-color: ${(props) => props.theme.colors.bgc};
-
-    transition: 200ms;
-  }
-
-  &:hover {
-    .icon-plus {
-      fill: white;
-      rotate: 180deg;
-      scale: 1.2;
-    }
-
-    &::after {
-      border-radius: 0;
-      width: 100%;
-      height: 100%;
-      background-color: ${(props) => props.theme.colors.primeColor};
-      opacity: 0.7;
-    }
-
-    &::before {
-      background-color: transparent;
-    }
-  }
-}
-
-.Post {
-  box-shadow: 0 0 10px ${(props) => props.theme.colors.lightGray};
-  padding: calc(1vw + 11px);
-  background-color: ${(props) => props.theme.colors.elemsBgc};
-  border-radius: 20px;
-  margin-bottom: 20px;
-
-  position: relative;
-
-  &._liked {
-    .icon-wrapper {
-      .icon-like {
-        fill: ${(props) => props.theme.colors.red};
-        stroke: 0;
-        stroke-width: 0;
-      }
-
-      .likes-count {
-        color: ${(props) => props.theme.colors.red};
-      }
-    }
-  }
-
-  &._marked {
-    .icon-wrapper {
-      .icon-mark {
-        fill: ${(props) => props.theme.colors.primeColor};
-        stroke: 0;
-        stroke-width: 0;
-      }
-    }
-  }
-
-  .UserElem {
-    cursor: default;
-    padding: 0;
-    margin-bottom: 30px;
-
-    &:hover {
-      background-color: initial;
-      scale: 1;
-    }
-
-    &::after {
-      display: none; //? нижняя полоса в списке
-    }
-
-    img {
-      flex: 0 0 60px;
-      height: 60px;
-      border-radius: 50%;
-      object-fit: cover;
-    }
-  }
-
-  &__text {
-    margin-bottom: 20px;
-  }
-}
-
 .icon-more {
   cursor: pointer;
   position: absolute;
@@ -560,6 +214,40 @@ export const StyledMainPage = styled.div`
     grid-auto-rows: minmax(100px, 200px);
   }
 }
+
+.Post {
+    box-shadow: 0 0 10px ${(props) => props.theme.colors.lightGray};
+    padding: calc(1vw + 11px);
+    background-color: ${(props) => props.theme.colors.elemsBgc};
+    border-radius: 20px;
+    margin-bottom: 20px;
+
+    position: relative;
+
+    &._liked {
+      .icon-wrapper {
+        .icon-like {
+          fill: ${(props) => props.theme.colors.red};
+          stroke: 0;
+          stroke-width: 0;
+        }
+
+        .likes-count {
+          color: ${(props) => props.theme.colors.red};
+        }
+      }
+    }
+
+    &._marked {
+      .icon-wrapper {
+        .icon-mark {
+          fill: ${(props) => props.theme.colors.primeColor};
+          stroke: 0;
+          stroke-width: 0;
+        }
+      }
+    }
+  }
 
 .Repost__wrapper {
   border-left: 1px solid ${(props) => props.theme.colors.gray};
