@@ -19,7 +19,7 @@ interface ILoginUserPayload {
   password: string;
 }
 
-interface ILoginUserResponse extends IRegistrationResponse {}
+export interface ILoginUserResponse extends IRegistrationResponse {}
 
 interface IGetUserResponse {
   status: number;

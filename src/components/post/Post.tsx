@@ -1,15 +1,43 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { StyledPost } from "./Post.style";
+import { PostSettings } from "./PostSettings";
+import { useDeletePostMutation } from "../../store/API/postApi";
 
 interface IPostProps {
-  isLiked?: boolean,
-  isMarked?: boolean,
-  postText: string,
-  userName: string,
-  regDate: string
+  isLiked?: boolean;
+  isMarked?: boolean;
+  postText: string;
+  userName: string;
+  regDate: string;
+  photos: Array<string>;
+  postId: number | string;
+  onPostDelete?: () => void
 }
 
-export const Post = ({ isLiked, isMarked, postText, userName, regDate }: IPostProps) => {
+export const Post = ({
+  isLiked,
+  isMarked,
+  postText,
+  userName,
+  regDate,
+  photos,
+  postId,
+  onPostDelete,
+}: IPostProps) => {
+  const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
+  const [deletePost, {isSuccess}] = useDeletePostMutation();
+
+  useEffect(() => {
+    if (typeof onPostDelete === 'function' && isSuccess ) {
+      onPostDelete()
+      setIsSettingsOpen(false)
+    }
+  }, [isSuccess])
+
+  const handlePostDelete = () => {
+    deletePost(postId)
+  }
+
   return (
     <StyledPost $isLiked={isLiked} $isMarked={isMarked}>
       <div className="UserElem">
@@ -22,38 +50,40 @@ export const Post = ({ isLiked, isMarked, postText, userName, regDate }: IPostPr
         </div>
       </div>
       <p className="Post__text">{postText}</p>
-      <div className="media-container">
-        <img
-          className="media__item"
-          src="./img/post/nature-1.png"
-          alt="Post Item"
-        />
-        <img
-          className="media__item"
-          src="./img/post/nature-2.png"
-          alt="Post Item"
-        />
-        <img
-          className="media__item"
-          src="./img/post/nature-3.png"
-          alt="Post Item"
-        />
-        <img
-          className="media__item"
-          src="./img/post/nature-4.png"
-          alt="Post Item"
-        />
-        <img
-          className="media__item"
-          src="./img/post/nature-5.png"
-          alt="Post Item"
-        />
-        <img
-          className="media__item"
-          src="./img/post/nature-6.png"
-          alt="Post Item"
-        />
-      </div>
+      {!!photos.length && (
+        <div className="media-container">
+          <img
+            className="media__item"
+            src="./img/post/nature-1.png"
+            alt="Post Item"
+          />
+          <img
+            className="media__item"
+            src="./img/post/nature-2.png"
+            alt="Post Item"
+          />
+          <img
+            className="media__item"
+            src="./img/post/nature-3.png"
+            alt="Post Item"
+          />
+          <img
+            className="media__item"
+            src="./img/post/nature-4.png"
+            alt="Post Item"
+          />
+          <img
+            className="media__item"
+            src="./img/post/nature-5.png"
+            alt="Post Item"
+          />
+          <img
+            className="media__item"
+            src="./img/post/nature-6.png"
+            alt="Post Item"
+          />
+        </div>
+      )}
       <div className="PostControls">
         <div className="icon-wrapper like">
           <span className="count likes-count">-500</span>
@@ -135,6 +165,7 @@ export const Post = ({ isLiked, isMarked, postText, userName, regDate }: IPostPr
         className="icon icon-more"
         viewBox="0 0 25 5"
         xmlns="http://www.w3.org/2000/svg"
+        onClick={() => setIsSettingsOpen(!isSettingsOpen)}
       >
         <g id="more">
           <circle id="ellipse" cx="22.5" cy="2.5" r="2.5" />
@@ -142,6 +173,12 @@ export const Post = ({ isLiked, isMarked, postText, userName, regDate }: IPostPr
           <circle id="ellipse_3" cx="2.5" cy="2.5" r="2.5" />
         </g>
       </svg>
+      {isSettingsOpen && (
+        <PostSettings
+          onDeleteClick={handlePostDelete}
+          onEdditClick={() => {}}
+        />
+      )}
     </StyledPost>
   );
 };

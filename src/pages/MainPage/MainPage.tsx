@@ -4,24 +4,23 @@ import { StyledMainPage } from "./MainPage.style";
 import { Container } from "../../components/UI/container/Container.style";
 import { Post } from "../../components/post/Post";
 import { Navbar } from "../../components/navbar/NavBar";
-import {
-  useGetPostListQuery,
-  useLazyGetPostListQuery,
-} from "../../store/API/postApi";
+import { useLazyGetPostListQuery } from "../../store/API/postApi";
 import { WhatsNew } from "../../components/whatsnew/WhatsNew";
 import { History } from "../../components/history/History";
+import { FullScreenLoader } from "../../components/UI/fullScreenLoader/FullScreenLoader";
 
 export const MainPage = () => {
-  const { data, isLoading, isError } = useGetPostListQuery(null);
-  // const [ fetchTriger, { data, isLoading, isError } ] = useLazyGetPostListQuery()
+  // const { data, isLoading, isError } = useGetPostListQuery(null);
+  const [fetchTriger, { data, isLoading, isError }] = useLazyGetPostListQuery();
 
-  // useEffect(() => {
-  //   fetchTriger(null)
-  // }, [fetchTriger])
+  useEffect(() => {
+    fetchTriger(null);
+  }, [fetchTriger]);
 
   return (
     <Container>
       <Header />
+      {isLoading && <FullScreenLoader />}
       <StyledMainPage>
         <aside className="LeftSide">
           <Navbar />
@@ -97,17 +96,24 @@ export const MainPage = () => {
           </div>
         </aside>
         <main className="Main">
-          <WhatsNew />
+          <WhatsNew onNewPostAdded={() => fetchTriger(null)} />
           <History />
-          {/* {data?.message.length &&
-            data.message.map((post) => (
-              <Post
-                postText={post.main_text}
-                regDate={post.reg_date}
-                userName={post.user_fk.name}
-              />
-            ))} */}
-          <div className="Post Repost _liked _marked">
+          {isError && <h1>Ошибка</h1>}
+          {data?.message.length &&
+            [...data.message]
+              .reverse()
+              .map((post) => (
+                <Post
+                  key={post.id}
+                  postText={post.main_text}
+                  regDate={post.reg_date}
+                  userName={post.user_fk.name}
+                  photos={post.photos}
+                  postId={post.id}
+                  onPostDelete={() => fetchTriger(null)}
+                />
+              ))}
+          {/* <div className="Post Repost _liked _marked">
             <div className="UserElem Repost__owner">
               <img src="./img/users/mark-krahmalev.jpeg" alt="User" />
               <div className="user__description">
@@ -228,7 +234,7 @@ export const MainPage = () => {
                 <circle id="ellipse_3" cx="2.5" cy="2.5" r="2.5" />
               </g>
             </svg>
-          </div>
+          </div> */}
         </main>
         <aside className="RightSide">
           <div className="List">

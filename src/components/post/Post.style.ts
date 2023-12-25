@@ -1,8 +1,8 @@
-import styled, { css } from "styled-components"
+import styled, { css } from "styled-components";
 
 interface IStyledPostProps {
-  $isLiked?: boolean,
-  $isMarked?: boolean
+  $isLiked?: boolean;
+  $isMarked?: boolean;
 }
 
 export const StyledPost = styled.div<IStyledPostProps>`
@@ -14,29 +14,33 @@ export const StyledPost = styled.div<IStyledPostProps>`
 
   position: relative;
 
-  ${(props) => props.$isLiked && css` 
-    .icon-wrapper {
-      .icon-like {
-        fill: ${(props) => props.theme.colors.red};
-        stroke: 0;
-        stroke-width: 0;
-      }
+  ${(props) =>
+    props.$isLiked &&
+    css`
+      .icon-wrapper {
+        .icon-like {
+          fill: ${(props) => props.theme.colors.red};
+          stroke: 0;
+          stroke-width: 0;
+        }
 
-      .likes-count {
-        color: ${(props) => props.theme.colors.red};
+        .likes-count {
+          color: ${(props) => props.theme.colors.red};
+        }
       }
-    }
-  `}
+    `}
 
-  ${(props) => props.$isMarked && css`
-    .icon-wrapper {
-      .icon-mark {
-        fill: ${(props) => props.theme.colors.primeColor};
-        stroke: 0;
-        stroke-width: 0;
+  ${(props) =>
+    props.$isMarked &&
+    css`
+      .icon-wrapper {
+        .icon-mark {
+          fill: ${(props) => props.theme.colors.primeColor};
+          stroke: 0;
+          stroke-width: 0;
+        }
       }
-    }
-  `}
+    `}
 
   .UserElem {
     cursor: default;
@@ -63,4 +67,28 @@ export const StyledPost = styled.div<IStyledPostProps>`
   &__text {
     margin-bottom: 20px;
   }
-`
+`;
+
+export const StyledPostSettings = styled.div`
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  border-radius: 8px;
+  background: #fefefe;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-flow: column;
+  padding: 16px; 
+
+  span {
+    cursor: pointer;
+    margin-bottom: 8px; 
+    &:last-child {
+      margin-bottom: 0; 
+    }
+
+    &:hover {
+      color: #526ed3;
+    }
+  }
+`;
