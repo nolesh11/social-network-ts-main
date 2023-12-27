@@ -55,36 +55,21 @@ export const AddNewPostForm = ({
   const [addNewPost, { data: postData, isLoading, isSuccess }] =
     useAddNewPostMutation();
 
-  // const handleAddNewPostSubmit: SubmitHandler<{ mainText: string }> = (
-  //   formData
-  // ) => {
-  //   if (formData) {
-  //     const payload = {
-  //       user_id: Number(userId),
-  //       main_text: formData.mainText,
-  //     };
-  //     addNewPost(payload);
-  //     OnClosseModal();
-  //   }
-
-  //   if (isSuccess) {
-  //     OnClosseModal();
-  //   }
-  // };
-
-  const handleAddNewPostSubmit: SubmitHandler<{ mainText: string }> = (formData) => {
+  const handleAddNewPostSubmit: SubmitHandler<{ mainText: string }> = (
+    formData
+  ) => {
     if (formData) {
       const payload = {
         user_id: Number(userId),
         main_text: formData.mainText,
       };
       addNewPost(payload);
-      onClosseModal()
+      onClosseModal();
     }
     if (isSuccess) {
-      onClosseModal()
+      onClosseModal();
     }
-  }
+  };
   return (
     <Modal isOpen={isOpen} style={customStyles}>
       <StyledPostFormBox onSubmit={handleSubmit(handleAddNewPostSubmit)}>

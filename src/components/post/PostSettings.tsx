@@ -2,7 +2,7 @@ import React from "react";
 import { StyledPostSettings } from "./Post.style";
 
 type PostSettingsProps = {
-  onEdditClick: () => void
+  onEdditClick?: () => void
   onDeleteClick: () => void
 }
 

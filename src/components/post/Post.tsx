@@ -11,7 +11,8 @@ interface IPostProps {
   regDate: string;
   photos: Array<string>;
   postId: number | string;
-  onPostDelete?: () => void
+  onPostDelete?: () => void;
+  onPostEditClick?: () => void;
 }
 
 export const Post = ({
@@ -23,6 +24,7 @@ export const Post = ({
   photos,
   postId,
   onPostDelete,
+  onPostEditClick,
 }: IPostProps) => {
   const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
   const [deletePost, {isSuccess}] = useDeletePostMutation();
@@ -36,6 +38,13 @@ export const Post = ({
 
   const handlePostDelete = () => {
     deletePost(postId)
+  }
+
+  const handleEditClick = () => {
+    if (typeof onPostEditClick === 'function') {
+      onPostEditClick()
+      setIsSettingsOpen(false)
+    }
   }
 
   return (
@@ -176,7 +185,7 @@ export const Post = ({
       {isSettingsOpen && (
         <PostSettings
           onDeleteClick={handlePostDelete}
-          onEdditClick={() => {}}
+          onEdditClick={handleEditClick}
         />
       )}
     </StyledPost>

@@ -48,10 +48,10 @@ export interface IEditPostResponse {
   message: string;
 }
 
-// export interface IDeletePostResponse {
-//   status: number;
-//   message: string;
-// }
+export interface IDeletePostResponse {
+  status: number;
+  message: string;
+}
 
 export const postApi = createApi({
   reducerPath: "postApi",
@@ -72,12 +72,12 @@ export const postApi = createApi({
     }),
     editPost: builder.mutation<IEditPostResponse, IEditPostPayload>({
       query: (payload) => ({
-        url: "/POST",
+        url: "/post",
         method: "PUT",
         body: payload,
       }),
     }),
-    deletePost: builder.mutation<any, any>({
+    deletePost: builder.mutation<IDeletePostResponse, any>({
       query: (post_id: string) => ({
         url: `/post/?post_id=${post_id}`,
         method: "DELETE",
@@ -91,5 +91,6 @@ export const {
   useLazyGetPostListQuery,
   useLazyGetPostIdQuery,
   useAddNewPostMutation,
-  useDeletePostMutation
+  useDeletePostMutation,
+  useEditPostMutation
 } = postApi;

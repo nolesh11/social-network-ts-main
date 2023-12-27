@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Header } from "../../components/UI/Header/Header";
 import { StyledMainPage } from "./MainPage.style";
 import { Container } from "../../components/UI/container/Container.style";
@@ -8,14 +8,35 @@ import { useLazyGetPostListQuery } from "../../store/API/postApi";
 import { WhatsNew } from "../../components/whatsnew/WhatsNew";
 import { History } from "../../components/history/History";
 import { FullScreenLoader } from "../../components/UI/fullScreenLoader/FullScreenLoader";
+import { EditPostForm } from "../PostPage/EditPostForm";
+import type { PostItem } from "../../store/API/postApi";
+
+// premature optomization
 
 export const MainPage = () => {
   // const { data, isLoading, isError } = useGetPostListQuery(null);
   const [fetchTriger, { data, isLoading, isError }] = useLazyGetPostListQuery();
+  const [selectedPost, setSelectedPost] = useState<PostItem | null>();
+  const [openEditPost, setOpenEditPost] = useState<boolean>(false);
 
   useEffect(() => {
     fetchTriger(null);
   }, [fetchTriger]);
+
+  const onEditModalClose = useCallback(() => {
+    setSelectedPost(null);
+    setOpenEditPost(false);
+  }, []);
+
+  const handleEditPostClick = useCallback((post: PostItem) => {
+    setSelectedPost(post);
+    setOpenEditPost(true);
+  }, []);
+
+  const handleEditPostSuccess = useCallback(() => {
+    fetchTriger(null);
+    onEditModalClose();
+  }, []); // eslint-disable-line
 
   return (
     <Container>
@@ -111,6 +132,7 @@ export const MainPage = () => {
                   photos={post.photos}
                   postId={post.id}
                   onPostDelete={() => fetchTriger(null)}
+                  onPostEditClick={() => handleEditPostClick(post)}
                 />
               ))}
           {/* <div className="Post Repost _liked _marked">
@@ -236,6 +258,14 @@ export const MainPage = () => {
             </svg>
           </div> */}
         </main>
+        {selectedPost && (
+          <EditPostForm
+            isOpen={openEditPost}
+            post={selectedPost}
+            onClosseModal={onEditModalClose}
+            onEditPostSuccess={handleEditPostSuccess}
+          />
+        )}
         <aside className="RightSide">
           <div className="List">
             <div className="List__title">
