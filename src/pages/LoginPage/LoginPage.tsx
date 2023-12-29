@@ -65,7 +65,7 @@ export const LoginPage = () => {
     console.log(userData);
     if (userData?.user_id) {
       navigate("/profile");
-      localStorage.setItem('userLoginData', JSON.stringify(userData.user_id))
+      localStorage.setItem("userLoginData", JSON.stringify(userData.user_id));
     }
   }, [navigate, userData]);
 

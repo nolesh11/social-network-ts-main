@@ -92,3 +92,19 @@ export const StyledPostSettings = styled.div`
     }
   }
 `;
+
+export const StyledTextarea = styled.textarea`
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  resize: none;
+  box-sizing: border-box;
+  font-size: 16px;
+  margin-top: 24px;
+`;
+
+export const PostCommentBox = styled.div`
+  display: flex;
+  flex-flow: column;
+`

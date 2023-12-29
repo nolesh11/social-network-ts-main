@@ -1,10 +1,9 @@
 import { fetchBaseQuery, createApi } from "@reduxjs/toolkit/query/react";
 import { baseUrl } from "../../utils/baseUrl";
-import type { PostItem } from "./postApi";
 
 interface IGetPostCommentByIdResponse {
   status: number;
-  message: PostItem[];
+  message: string;
 }
 
 export interface IAddPostCommentResponse {

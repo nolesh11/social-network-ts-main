@@ -14,7 +14,6 @@ import type { PostItem } from "../../store/API/postApi";
 // premature optomization
 
 export const MainPage = () => {
-  // const { data, isLoading, isError } = useGetPostListQuery(null);
   const [fetchTriger, { data, isLoading, isError }] = useLazyGetPostListQuery();
   const [selectedPost, setSelectedPost] = useState<PostItem | null>();
   const [openEditPost, setOpenEditPost] = useState<boolean>(false);
@@ -126,11 +125,7 @@ export const MainPage = () => {
               .map((post) => (
                 <Post
                   key={post.id}
-                  postText={post.main_text}
-                  regDate={post.reg_date}
-                  userName={post.user_fk.name}
-                  photos={post.photos}
-                  postId={post.id}
+                  post={post}
                   onPostDelete={() => fetchTriger(null)}
                   onPostEditClick={() => handleEditPostClick(post)}
                 />
