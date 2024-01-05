@@ -8,6 +8,10 @@ import { PostCommentsEditor } from "./PostCommentsEditor";
 import { PostCommentsItem } from "./PostCommentsItem";
 
 import type { PostItem } from "../../store/API/postApi";
+import {
+  useAddPostPhotoMutation,
+  useDeletePostPhotoMutation,
+} from "../../store/API/photosAp";
 
 interface IPostProps {
   isLiked?: boolean;
@@ -15,6 +19,7 @@ interface IPostProps {
   post: PostItem;
   onPostDelete?: () => void;
   onPostEditClick?: () => void;
+  onPostUpdated?: () => void;
 }
 
 export const Post = ({
@@ -23,10 +28,15 @@ export const Post = ({
   post,
   onPostDelete,
   onPostEditClick,
+  onPostUpdated,
 }: IPostProps) => {
   const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
   const [newCommentValue, setNewCommentValue] = useState<string>("");
   const [deletePost, { isSuccess }] = useDeletePostMutation();
+  const [uploadFile, { isSuccess: isPhotoAddedSuccess }] =
+    useAddPostPhotoMutation();
+  const [deleteFile, { isSuccess: isPhotoDeletedSuccess }] =
+    useDeletePostPhotoMutation();
 
   const {
     main_text,
@@ -44,6 +54,15 @@ export const Post = ({
     }
   }, [isSuccess]);
 
+  useEffect(() => {
+    if (
+      typeof onPostUpdated === "function" &&
+      (isPhotoAddedSuccess || isPhotoDeletedSuccess)
+    ) {
+      onPostUpdated();
+    }
+  }, [isPhotoAddedSuccess, isPhotoDeletedSuccess]);
+
   const handlePostDelete = () => {
     deletePost(id);
   };
@@ -53,6 +72,23 @@ export const Post = ({
       onPostEditClick();
       setIsSettingsOpen(false);
     }
+  };
+
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log("event: ", event);
+
+    if (event.target.files?.length) {
+      const formData = new FormData();
+
+      formData.append("post_id", `${id}`);
+      formData.append("photo_file", event.target.files[0]);
+
+      uploadFile(formData);
+    }
+  };
+
+  const handleDeletePhoto = (photoId: string) => {
+    deleteFile(photoId );
   };
 
   return (
@@ -69,52 +105,34 @@ export const Post = ({
       <p className="Post__text">{main_text}</p>
       {!!photos.length && (
         <div className="media-container">
-          <img
-            className="media__item"
-            src="./img/post/nature-1.png"
-            alt="Post Item"
-          />
-          <img
-            className="media__item"
-            src="./img/post/nature-2.png"
-            alt="Post Item"
-          />
-          <img
-            className="media__item"
-            src="./img/post/nature-3.png"
-            alt="Post Item"
-          />
-          <img
-            className="media__item"
-            src="./img/post/nature-4.png"
-            alt="Post Item"
-          />
-          <img
-            className="media__item"
-            src="./img/post/nature-5.png"
-            alt="Post Item"
-          />
-          <img
-            className="media__item"
-            src="./img/post/nature-6.png"
-            alt="Post Item"
-          />
+          {photos.map((photo) => (
+            <span className="post-image-box">
+              <img
+                key={`photo-${photo.photo_id}`}
+                className="media__item"
+                src={`http://161.35.153.209:5430${photo.photo_url}`}
+                alt="Post Item"
+              />
+              <svg
+                id="_Слой_2"
+                data-name="Слой 2"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 14 14"
+                className="delete-post-photo-box"
+                onClick={() => handleDeletePhoto(`${photo.photo_id}`)}
+              >
+                <g id="_Слой_1-2" data-name="Слой 1">
+                  <path
+                    className="cls-1"
+                    d="M13,8h-5v5c0,.27-.11,.52-.29,.71-.19,.19-.44,.29-.71,.29s-.52-.11-.71-.29c-.19-.19-.29-.44-.29-.71v-5H1c-.27,0-.52-.11-.71-.29-.19-.19-.29-.44-.29-.71s.11-.52,.29-.71c.19-.19,.44-.29,.71-.29H6V1c0-.27,.11-.52,.29-.71,.19-.19,.44-.29,.71-.29s.52,.11,.71,.29c.19,.19,.29,.44,.29,.71V6h5c.27,0,.52,.11,.71,.29,.19,.19,.29,.44,.29,.71s-.11,.52-.29,.71c-.19,.19-.44,.29-.71,.29Z"
+                  />
+                </g>
+              </svg>
+            </span>
+          ))}
         </div>
       )}
       <div className="PostControls">
-        {/* <div className="icon-wrapper like">
-          <span className="count likes-count">500</span>
-          <svg
-            className="icon icon-like"
-            viewBox="0 0 23 23"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              id="icon"
-              d="M11.5 23L9.8325 21.3455C3.91 15.4921 0 11.6191 0 6.89373C0 3.02071 2.783 0 6.325 0C8.326 0 10.2465 1.01526 11.5 2.60708C12.7535 1.01526 14.674 0 16.675 0C20.217 0 23 3.02071 23 6.89373C23 11.6191 19.09 15.4921 13.1675 21.3455L11.5 23Z"
-            />
-          </svg>
-        </div> */}
         <div className="icon-wrapper comment">
           <span className="count comments-count">{comments.length}</span>
           <svg
@@ -142,23 +160,22 @@ export const Post = ({
             />
           </svg>
         </div>
-        <div className="icon-wrapper mark">
+        <div className="icon-wrapper upload-image">
+          <input type="file" onChange={handleFileUpload} />
           <svg
-            className="icon icon-mark"
-            viewBox="0 0 21 25"
             xmlns="http://www.w3.org/2000/svg"
+            height="20"
+            width="18"
+            viewBox="0 0 448 512"
+            fill="grey"
           >
-            <path
-              id="mark"
-              d="M2.5 24.8819C2.02381 25.0725 1.57143 25.031 1.14286 24.7574C0.714285 24.4838 0.5 24.0844 0.5 23.5591V2.85999C0.5 2.07349 0.78 1.39996 1.34 0.839407C1.9 0.278851 2.57238 -0.0009509 3.35714 2.42783e-06H17.6429C18.4286 2.42783e-06 19.1014 0.280281 19.6614 0.840837C20.2214 1.40139 20.5009 2.07444 20.5 2.85999V23.5591C20.5 24.0834 20.2857 24.4829 19.8571 24.7574C19.4286 25.032 18.9762 25.0735 18.5 24.8819L10.5 21.4499L2.5 24.8819Z"
-            />
+            <path d="M364.2 83.8c-24.4-24.4-64-24.4-88.4 0l-184 184c-42.1 42.1-42.1 110.3 0 152.4s110.3 42.1 152.4 0l152-152c10.9-10.9 28.7-10.9 39.6 0s10.9 28.7 0 39.6l-152 152c-64 64-167.6 64-231.6 0s-64-167.6 0-231.6l184-184c46.3-46.3 121.3-46.3 167.6 0s46.3 121.3 0 167.6l-176 176c-28.6 28.6-75 28.6-103.6 0s-28.6-75 0-103.6l144-144c10.9-10.9 28.7-10.9 39.6 0s10.9 28.7 0 39.6l-144 144c-6.7 6.7-6.7 17.7 0 24.4s17.7 6.7 24.4 0l176-176c24.4-24.4 24.4-64 0-88.4z" />
           </svg>
         </div>
       </div>
-      {/* <PostCommentsItem /> */}
       <PostCommentBox>
         {comments &&
-          comments.length &&
+          !!comments.length &&
           comments.map((comment) => (
             <div className="CommentBlock">
               <PostCommentsItem commentsText={comment} />

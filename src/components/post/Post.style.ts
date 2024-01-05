@@ -67,6 +67,41 @@ export const StyledPost = styled.div<IStyledPostProps>`
   &__text {
     margin-bottom: 20px;
   }
+
+  .upload-image {
+    width: 45px;
+    height: 45px;
+    position: relative;
+    
+    input {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      right: 0;
+      background-color: transparent;
+      opacity: 0;
+      cursor: pointer;
+    }
+    svg {
+      cursor: pointer;
+    }
+  }
+
+  .media-container {
+    .post-image-box {
+      position: relative;
+      .delete-post-photo-box {
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        right: 8px;
+        top: 8px;
+        cursor: pointer;
+        transform: rotate(45deg)
+      }
+    }
+  }
 `;
 
 export const StyledPostSettings = styled.div`

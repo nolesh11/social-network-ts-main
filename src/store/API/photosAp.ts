@@ -14,6 +14,8 @@ export interface IDeletePostPhotoResponse {
   message: string;
 }
 
+
+
 export const photoApi = createApi({
   reducerPath: 'photosApi',
   baseQuery: fetchBaseQuery({ baseUrl }),
@@ -29,6 +31,9 @@ export const photoApi = createApi({
         url: 'add-photo',
         method: 'POST',
         body: payload,
+        headers: {
+          contentType: 'multipart/form-data'
+        }
         // TODO
       })
     }),
@@ -40,3 +45,5 @@ export const photoApi = createApi({
     })
   })
 })
+
+export const { useAddPostPhotoMutation, useDeletePostPhotoMutation } = photoApi

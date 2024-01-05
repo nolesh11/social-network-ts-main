@@ -128,6 +128,7 @@ export const MainPage = () => {
                   post={post}
                   onPostDelete={() => fetchTriger(null)}
                   onPostEditClick={() => handleEditPostClick(post)}
+                  onPostUpdated={() => fetchTriger(null)}
                 />
               ))}
           {/* <div className="Post Repost _liked _marked">

@@ -1,6 +1,11 @@
 import { fetchBaseQuery, createApi } from "@reduxjs/toolkit/query/react";
 import { baseUrl } from "../../utils/baseUrl";
 
+type PhotoItem = {
+  photo_id: number;
+  photo_url: string;
+}
+
 export interface PostItem {
   main_text: string;
   user_id: number;
@@ -15,7 +20,7 @@ export interface PostItem {
     user_city: string;
     reg_date: string;
   };
-  photos: string[];
+  photos: PhotoItem[];
   comments: string[];
 }
 
