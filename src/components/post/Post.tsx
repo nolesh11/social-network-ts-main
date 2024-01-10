@@ -52,7 +52,7 @@ export const Post = ({
       onPostDelete();
       setIsSettingsOpen(false);
     }
-  }, [isSuccess]);
+  }, [isSuccess]); // eslint-disable-line
 
   useEffect(() => {
     if (
@@ -61,7 +61,7 @@ export const Post = ({
     ) {
       onPostUpdated();
     }
-  }, [isPhotoAddedSuccess, isPhotoDeletedSuccess]);
+  }, [isPhotoAddedSuccess, isPhotoDeletedSuccess]);// eslint-disable-line
 
   const handlePostDelete = () => {
     deletePost(id);
